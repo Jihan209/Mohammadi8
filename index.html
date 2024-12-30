@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تهنئة برأس السنة</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #A8DADC, #FFE156); /* خلفية مريحة للعين */
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-family: 'Verdana', sans-serif;
+            font-weight: bold;
+            color: #F1C40F; /* لون مشرق للجملة */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .message-box {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            padding: 30px;
+            width: 80%;
+            max-width: 700px;
+            margin: 20px;
+            font-size: 1.4rem;
+            line-height: 1.8;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            text-align: right;
+            font-family: 'Verdana', sans-serif;
+        }
+
+        .message-box p {
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #FF6347;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.4rem;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: background-color 0.3s;
+            margin-top: 30px;
+        }
+
+        button:hover {
+            background-color: #FF4500;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        /* تحسين الاستجابة للشاشات الصغيرة */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 2.5rem; /* تقليل حجم الخط للعناوين */
+            }
+
+            .message-box {
+                padding: 20px;
+                width: 90%; /* تقليل عرض المربع ليتناسب مع الشاشات الصغيرة */
+            }
+
+            button {
+                padding: 15px 30px;
+                font-size: 1.2rem;
+            }
+        }
+
+        /* تحسين الاستجابة للشاشات الصغيرة جدًا (الهواتف) */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem; /* تقليل حجم الخط أكثر للهواتف */
+            }
+
+            .message-box {
+                font-size: 1.2rem; /* تقليل حجم النص داخل المربع */
+                padding: 15px;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>كل عام وأنت بخير، محمد عبد الرضا! 🎉</h1>
+    <div class="message-box">
+        <p>في هذه اللحظة الجميلة من بداية عام جديد، أبعث لك برسالة مليئة بالأمل والتفاؤل. أتمنى من الله أن يحمل لك هذا العام كل الخير والسعادة، وأن تجد الشخص الذي يملأ حياتك بالحب والفرح الذي تستحقه. الحياة مليئة بالتحديات، ولكن مع كل خطوة نخطوها، نقترب أكثر من الحلم الذي نرغب في تحقيقه. أتمنى أن تكون هذه السنة بداية لرحلة جميلة لك، مليئة بالفرص والتجارب الجديدة التي تجلب لك السعادة الدائمة.</p>
+        <p>من جيهان ❤️</p>
+    </div>
+    <button onclick="celebrate()">احتفل الآن 🎊</button>
+
+    <canvas id="heartsCanvas"></canvas>
+    <canvas id="fireworksCanvas"></canvas>
+
+    <script>
+        function celebrate() {
+            showHearts();
+            showFireworks();
+        }
+
+        function showHearts() {
+            var canvas = document.getElementById("heartsCanvas");
+            var ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            var hearts = [];
+            for (var i = 0; i < 50; i++) {
+                hearts.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 20 + 10,
+                    speed: Math.random() * 3 + 1
+                });
+            }
+
+            function drawHearts() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                hearts.forEach(function (heart) {
+                    ctx.fillStyle = "red";
+                    ctx.beginPath();
+                    ctx.moveTo(heart.x, heart.y);
+                    ctx.arc(heart.x, heart.y - heart.size / 3, heart.size / 2, 0, Math.PI, true);
+                    ctx.arc(heart.x - heart.size / 3, heart.y - heart.size / 3, heart.size / 2, 0, Math.PI, true);
+                    ctx.lineTo(heart.x, heart.y + heart.size);
+                    ctx.fill();
+                    heart.y += heart.speed;
+                    if (heart.y > canvas.height) heart.y = -heart.size;
+                });
+                requestAnimationFrame(drawHearts);
+            }
+
+            drawHearts();
+        }
+
+        function showFireworks() {
+            var canvas = document.getElementById("fireworksCanvas");
+            var ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            var particles = [];
+            for (var i = 0; i < 100; i++) {
+                particles.push({
+                    x: canvas.width / 2,
+                    y: canvas.height / 2,
+                    angle: Math.random() * Math.PI * 2,
+                    speed: Math.random() * 5 + 2,
+                    size: Math.random() * 5 + 1,
+                    color: "hsl(" + Math.random() * 360 + ", 100%, 50%)"
+                });
+            }
+
+            function drawFireworks() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(function (particle) {
+                    ctx.fillStyle = particle.color;
+                    ctx.beginPath();
+                    ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    particle.x += Math.cos(particle.angle) * particle.speed;
+                    particle.y += Math.sin(particle.angle) * particle.speed;
+                });
+                requestAnimationFrame(drawFireworks);
+            }
+
+            drawFireworks();
+        }
+    </script>
+</body>
+</html>
